@@ -1,6 +1,7 @@
 Leetcode 56:
 Read question from : https://leetcode.com/problems/merge-intervals/
 ************************************************************Solution**********************************************************
+------------Brute force----------
 class Solution {
     public int[][] merge(int[][] nums) {
         int n = nums.length;
@@ -35,3 +36,37 @@ class Solution {
         return merged;
     }
 }
+---------using single loop-------
+class Solution {
+    public int[][] merge(int[][] nums) {
+        Arrays.sort(nums, (a, b) -> a[0] - b[0]);
+        int n = nums.length;
+        int i = 1;
+        int st = nums[0][0];
+        int end = nums[0][1];
+        List<int[]> list = new ArrayList<>();
+        while(i < n)
+        {
+            if(nums[i][0] <= end)
+            {
+                end = Math.max(nums[i][1], end);
+            }else{
+                int[]inter = new int[2];
+                inter[0] = st;
+                inter[1] = end;
+                list.add(inter);
+                st = nums[i][0];
+                end = nums[i][1];
+            }
+            i++;
+        }
+        list.add(new int[]{st, end});
+        int[][]merged = new int[list.size()][2];
+        for(int j = 0; j < list.size(); j++)
+        {
+            merged[j] = list.get(j);
+        }
+        return merged;
+    }
+}
+
