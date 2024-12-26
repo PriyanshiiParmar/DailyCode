@@ -1,0 +1,112 @@
+***************************************Question*************************************************
+Aladdin has stumbled upon a magical grid in the Cave of Wonders. This grid is filled with mysterious numbers that hold the key to unlocking untold treasures. However, to access the treasure, the grid must be transformed into a uni-value grid, where every number in the grid becomes the same. Aladdin can only use a magical number, x, to either add or subtract from the numbers in the grid. The Genie has set this challenge for Aladdin: transform the grid using the minimum number of magical operations. If it's impossible to create a uni-value grid, Aladdin must return empty-handed. Can you help Aladdin calculate the minimum number of operations required to make the grid uni-value, or determine if the task is impossible?
+
+Input Format
+
+The first line contains T, the number of test cases.
+For each test case:
+The first line contains two integers, m (rows) and n (columns), followed by the magical number x.
+The next m lines contain n integers representing the grid.
+Constraints
+
+1<=T<=1000
+1<=m,n<=25
+1<=x<=10
+-100000<=matrix[i][j]<=100000
+Output Format
+
+For each test case, output the minimum number of operations required to make the grid uni-value. If it's not possible, output -1.
+
+Sample Input 0
+
+1 
+2 2 2
+2 4
+6 8
+Sample Output 0
+
+4
+Explanation 0
+
+Aladdin has the following magical grid:
+
+[2 4]
+
+[6 8]
+
+The magical number x=2.
+
+Aladdin can perform the following operations:
+
+Subtract 2 from 4 to get 2.
+Subtract 4 from 6 to get 2.
+Subtract 6 from 8 to get 2.
+This requires 4 operations in total.
+*****************************************************Solution************************8*****************************
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt(); 
+        
+        while (t-- > 0) {
+            int m = sc.nextInt();  
+            int n = sc.nextInt(); 
+            int x = sc.nextInt();  
+            
+            int[][] arr = new int[m][n];
+            List<Integer> list = new ArrayList<>();
+            
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    arr[i][j] = sc.nextInt();
+                    list.add(arr[i][j]);
+                }
+            }
+            
+            int ans = Integer.MAX_VALUE;
+            
+            for (int v : list) {
+                if (canTransform(v, arr, x)) {
+                    int cnt = findOperation(v, arr, x);
+                    ans = Math.min(ans, cnt);
+                }
+            }
+            
+            if (ans == Integer.MAX_VALUE) {
+                System.out.println("-1");
+            } else {
+                System.out.println(ans);
+            }
+        }
+    }
+
+    public static boolean canTransform(int target, int[][] arr, int x) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                int diff = Math.abs(arr[i][j] - target);
+                if (diff % x != 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static int findOperation(int target, int[][] arr, int x) {
+        int cnt = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                int diff = Math.abs(arr[i][j] - target);
+                cnt += diff / x;
+            }
+        }
+        return cnt;
+    }
+}
