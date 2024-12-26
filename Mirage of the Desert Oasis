@@ -1,0 +1,119 @@
+************************************Quesion********************************
+Dholu and Bholu, adventurers exploring a mystical desert, stumble upon a magical mirage in the form of a shimmering oasis. The oasis is represented as a 2D grid of water tiles, where each tile can either shimmer with life (1) or fade into sand (0). The oasis shifts and transforms with time, following these magical rules:
+
+Any shimmering tile (1) with fewer than two neighboring shimmering tiles fades into sand (0).
+Any shimmering tile (1) with two or three shimmering neighbors continues to shimmer (1).
+Any shimmering tile (1) with more than three shimmering neighbors is overwhelmed and fades into sand (0).
+Any sandy tile (0) with exactly three shimmering neighbors becomes alive with shimmer (1).
+These transformations happen simultaneously across the entire grid. Your task is to determine the next transformation of the oasis after applying the magical rules to the given mxn grid.
+
+Input Format
+
+The first line contains T, the number of test cases.
+
+For each test case:
+
+The first line contains two integers m and n, representing the dimensions of the oasis grid.
+The next m lines contain n integers each (0 or 1), representing the current state of the oasis grid.
+Constraints
+
+1<=T<=1000
+1<=m,n<=25
+matrix[i][j] is either 0 (sandy tile) or 1 (shimmering tile).
+Output Format
+
+For each test case, output the next state of the oasis grid after applying the magical transformation rules.
+
+Sample Input 0
+
+1
+4 3
+0 1 0
+0 0 1
+1 1 1
+0 0 0
+Sample Output 0
+
+0 0 0
+1 0 1
+0 1 1
+0 1 0
+**********************************************Solution***************************************
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution 
+{
+
+    public static void main(String[] args) 
+    {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-- > 0)
+        {
+            int m = sc.nextInt();
+            int n = sc.nextInt();
+            int[][]arr = new int[m][n];
+            int[][]chg = new int[m][n];
+
+            for(int i = 0; i < m; i++)
+            {
+                for(int j = 0; j < n; j++)
+                {
+                    arr[i][j] = sc.nextInt();
+                }
+            }
+            for(int i = 0; i < m; i++)
+            {
+                for(int j = 0; j < n; j++)
+                {
+                   int cnt = count(i, j, arr, m, n);
+                    if(arr[i][j] == 0)
+                    {
+                        if(cnt == 3)
+                            chg[i][j] = 1;
+                        else 
+                            chg[i][j] = 0;
+                    }
+                    else if(arr[i][j] == 1)
+                    {
+                        if(cnt < 2 || cnt > 3)
+                        {
+                            chg[i][j] = 0;
+                        }
+                        else 
+                            chg[i][j] = 1;
+                    }
+                }
+            }
+             for(int i = 0; i < m; i++)
+            {
+                for(int j = 0; j < n; j++)
+                {
+                   System.out.print(chg[i][j] + " ");
+                }
+                 System.out.println();
+            }
+        }
+    }
+        public static int count(int a,int b, int[][]arr, int row, int col)
+        {
+            int cnt = 0;
+             int[][] pos = {{-1, -1}, {-1, 0}, {-1, 1},{ 0, -1},{ 0, 1},{ 1, -1}, { 1, 0}, { 1, 1}};
+            for(int[] p : pos)
+            {
+                int ai = a + p[0];
+                int bi = b + p[1];
+                if((ai >= 0 && ai < row) && (bi >= 0 && bi < col)  && arr[ai][bi] == 1)
+                {
+                    cnt++;
+                }
+            }
+            return cnt;
+        }
+}
