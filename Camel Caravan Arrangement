@@ -1,0 +1,71 @@
+****************************************Problem******************************************
+A caravan of camels is traveling across the desert, and each camel is marked with a unique identifier made up of alphanumeric characters. The caravan leader wants to arrange
+the camels in an order such that the identifiers are sorted by the frequency of their appearance in the caravan logs. The identifiers with higher frequencies should appear first.
+If two identifiers have the same frequency, they should be arranged in ascending order of their ASCII values.
+
+Write a program that outputs the arranged string of camel identifiers based on the rules above.
+
+Input Format
+
+The first line will give T, the number of test cases.
+Each test case will provide you with a string s, representing the sequence of camel identifiers.
+Constraints
+
+1<=T<=1000
+s.length <= 10000
+Output Format
+
+Output the arranged string of camel identifiers for each test case.
+Sample Input 0
+
+1
+camel
+Sample Output 0
+
+acelm
+Explanation 0
+
+The identifier 'c', 'a', 'm', 'e', and 'l' each appear exactly once. Since all characters have the same frequency, they are sorted in ascending order of their ASCII values: 'a', 'c', 'e', 'l', 'm'.
+**************************************Solution*********************************
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        sc.nextLine();
+
+        while (t-- > 0) {
+            String s = sc.nextLine();
+            Map<Character, Integer> map = new HashMap<>(); 
+
+            for (char c : s.toCharArray()) {
+                map.put(c, map.getOrDefault(c, 0) + 1);
+            }
+
+            List<Character> list = new ArrayList<>(map.keySet());
+
+            Collections.sort(list, (a, b) ->{
+                int freq = map.get(b) - map.get(a);
+                if(freq != 0)
+                {
+                    return freq;
+                }
+                else{
+                    return a - b;
+                }
+            });
+
+            StringBuilder sb = new StringBuilder();
+            for (char c : list) {
+                 int freq = map.get(c);
+                for (int i = 0; i < freq; i++) {
+                    sb.append(c);
+                }
+            }
+
+            System.out.println(sb.toString());
+        }
+    }
+}
