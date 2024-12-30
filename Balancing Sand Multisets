@@ -1,0 +1,68 @@
+***********************************Problem**************************************
+Insiya and Mubbu are studying sand patterns in a mysterious desert. There are N dunes, where the i-th dune has a unique sand pattern denoted by S[i].
+
+Insiya decides to collect sand samples from some of these N dunes, while Mubbu collects samples from the dunes left untouched by Insiya.
+
+Determine if it is possible for Insiya and Mubbu to end up with exactly the same multiset of sand patterns.
+
+Input Format
+
+The first line contains T, the number of test cases.
+
+For each test case:
+
+The first line contains N, the number of dunes in the desert.
+The second line contains the array S representing the sand patterns.
+Constraints
+
+1<=T<=1000
+1<=N<=10000
+1<=S[i]<=10000
+Output Format
+
+For each test case, print yes if it is possible for Insiya and Mubbu to end up with the same multiset of sand patterns. Otherwise, print no.
+
+Sample Input 0
+
+1
+6
+1 2 3 3 2 1
+Sample Output 0
+
+yes
+Explanation 0
+
+Insiya can collect samples from dunes with patterns 1, 2 ,3, while Mubbu collects samples from dunes with patterns 3, 2, 1. Both end up with the same multiset of sand patterns, so the answer is yes.
+*****************************************Solution****************************************
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-- > 0)
+        {
+            int n = sc.nextInt();
+            HashMap<Integer, Integer> map = new HashMap<>();
+            int[]arr = new int[n];
+            for(int i = 0; i < n; i++)
+            {
+                arr[i] = sc.nextInt();
+                map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
+            }
+            boolean ans = true;
+            for(Map.Entry<Integer, Integer> e : map.entrySet())
+            {
+                if(e.getValue() % 2 != 0)
+                    ans = false;
+            }
+            if(ans == true)
+                System.out.println("yes");
+            else
+                System.out.println("no");
+        }
+    }
+}
