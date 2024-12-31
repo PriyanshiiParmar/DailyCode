@@ -1,0 +1,140 @@
+*******************************Problem***************************************
+The desert cartographers use a special map encoding system to mark different regions. Each region is named using a specific pattern of symbols derived from the American keyboard layout.
+
+The symbols are divided into three sand trails:
+
+The first trail contains "qwertyuiop".
+The second trail contains "asdfghjkl".
+The third trail contains "zxcvbnm".
+A fellow cartographer proposes some encoded region names and claims they belong to a single sand trail. Your task is to verify if the given region name can be completely typed using 
+symbols from only one sand trail.
+
+Print "yes" if it's possible; otherwise, print "no".
+
+Input Format
+
+The first line contains T, the number of test cases.
+Each test case contains a string representing the encoded region name.
+Constraints
+
+1<=T<=100
+string.length<=1000
+Output Format
+
+For each test case, output "yes" if the encoded region name can be typed using a single sand trail, otherwise "no".
+
+Sample Input 0
+
+2  
+Alaska
+Dad
+Sample Output 0
+
+yes  
+yes
+Explanation 0
+
+"Alaska" can be typed using the second sand trail: "asdfghjkl".
+"Dad" can also be typed using the second sand trail: "asdfghjkl".
+
+***********************************************Solution*******************************************************
+There was a error might be from server side. 
+But the code failed 3 out of 15 cases for the java code but the same passed all in python.
+---------------------Java solution---------------
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt(); 
+        sc.nextLine();
+        while (t-- > 0) {
+            String s = sc.nextLine();
+            s = s.toLowerCase();
+            List<Character> list = new ArrayList<>();
+            for (char c : s.toLowerCase().toCharArray()) {
+                list.add(c);
+            }
+            boolean ans = firstTrail(list) || secondTrail(list) || thirdTrail(list);
+            if (ans) {
+                System.out.println("yes");
+            } else {
+                System.out.println("no");
+            }
+            list.clear();
+        }
+    }
+
+    public static boolean firstTrail(List<Character> list) {
+        String s = "qwertyuiop";
+        Set<Character> t = new HashSet<>();
+        for (char c : s.toCharArray()) {
+            t.add(c);
+        }
+        for (char c : list) {
+            if (!t.contains(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean secondTrail(List<Character> list) {
+        String s = "asdfghjkl";
+        Set<Character> t = new HashSet<>();
+        for (char c : s.toCharArray()) {
+            t.add(c);
+        }
+        for (char c : list) {
+            if (!t.contains(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean thirdTrail(List<Character> list) {
+        String s = "zxcvbnm";
+        Set<Character> t = new HashSet<>();
+        for (char c : s.toCharArray()) {
+            t.add(c);
+        }
+        for (char c : list) {
+            if (!t.contains(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+----------------------------Python Solution---------------------------------
+def is_single_trail(s):
+    trail1 = "qwertyuiop"
+    trail2 = "asdfghjkl"
+    trail3 = "zxcvbnm"
+
+    trail1_check = True
+    trail2_check = True
+    trail3_check = True
+
+    for c in s:
+        if c not in trail1:
+            trail1_check = False
+        if c not in trail2:
+            trail2_check = False
+        if c not in trail3:
+            trail3_check = False
+
+    return trail1_check or trail2_check or trail3_check
+
+if __name__ == "__main__":
+    t = int(input())
+    for _ in range(t):
+        s = input().strip().lower()
+        if is_single_trail(s):
+            print("yes")
+        else:
+            print("no")
