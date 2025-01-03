@@ -1,0 +1,99 @@
+***********************Problem********************
+As part of the New Year celebrations, a magical mirror has been set up in the town square. The mirror has the power to reveal if a phrase is perfectly 
+balanced—a palindrome that reads the same forward and backward. To use the mirror, townsfolk must process their phrases by converting all uppercase letters 
+into lowercase letters and removing all non-alphanumeric characters (letters and numbers only).
+
+Can you help the townsfolk check if their phrases are perfect reflections?
+
+Input Format
+
+The first line contains T, the number of test cases.
+For each test case:
+A single line contains a string s, representing the phrase to check.
+Constraints
+
+1≤s.length≤2×10^5
+s consists only of printable ASCII characters.
+Output Format
+
+For each test case, output "true" if the phrase is a palindrome and "false" otherwise.
+Sample Input 0
+
+1
+A man, a plan, a canal: Panama  
+Sample Output 0
+
+true  
+Explanation 0
+
+Test Case 1: The phrase "A man, a plan, a canal: Panama" is processed by: Converting all uppercase letters to lowercase. Removing spaces, punctuation, 
+and any non-alphanumeric characters. The resulting string is "amanaplanacanalpanama", which reads the same forward and backward. Therefore, the output is "true".
+
+Sample Input 1
+
+1
+race a car
+Sample Output 1
+
+false
+Explanation 1
+
+Test Case 2: The phrase "race a car" is processed similarly: Converting to lowercase. Removing spaces and non-alphanumeric characters. The resulting string
+is "raceacar", which does not read the same forward and backward. Therefore, the output is "false".
+
+Sample Input 2
+
+1
+" "
+Sample Output 2
+
+true
+Explanation 2
+
+Test Case 3: The phrase " " (a single space) is processed by: Removing all non-alphanumeric characters, leaving an empty string "". An empty string is
+considered a palindrome because it reads the same forward and backward. Therefore, the output is "true".
+***********************Solution*******************
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        sc.nextLine();
+        while(t-- > 0)
+        {
+            String s = sc.nextLine().toLowerCase();
+            StringBuilder sb = new StringBuilder();
+            for(char c : s.toCharArray())
+            {
+                if(!Character.isDigit(c) && Character.isAlphabetic(c))
+                {
+                    sb.append(c);
+                }
+            }
+            if(isPalin(sb))
+            {
+                System.out.println(true);
+            }
+            else{
+                System.out.println(false);
+            }
+        }
+    }
+    public static boolean isPalin(StringBuilder s)
+    {
+        String str = s.toString();
+        int i = 0, j = str.length() - 1;
+        while(i <= j)
+        {
+            if(s.charAt(i) != s.charAt(j))
+                return false;
+            i++;
+            j--;
+        }
+        return true;
+    }
+}
