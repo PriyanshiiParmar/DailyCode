@@ -1,0 +1,73 @@
+**********************************Problem**************************************
+The Nile River flows through different points, each with varying water flow rates. You are tasked with analyzing the
+flow rates represented as an array of integers. Your objective is to determine the longest contiguous subarray where 
+the flow does not decrease, i.e., each subsequent element in the subarray is greater than or equal to the previous element.
+
+Given an array representing water flow at different points along the Nile, find the length of the longest contiguous 
+subarray where the flow rates are non-decreasing. If there is a tie between subarrays of the same length, the specific 
+subarray does not matter as we are only concerned with the length.
+
+Input Format
+
+The first line contains an integer t, representing the number of test cases.
+For each test case:
+The first line contains an integer n, representing the number of points along the Nile.
+The second line contains an array flow of size n, where each element represents water flow at a point.
+Constraints
+
+1≤t≤100
+1≤n≤10^5
+0≤flow[i]≤10^8
+The total number of array elements across all test cases does not exceed 10^6
+Output Format
+
+For each test case, output a single integer representing the length of the longest non-decreasing subarray.
+
+Sample Input 0
+
+2  
+4  
+1 2 3 4  
+3  
+2 1 0  
+Sample Output 0
+
+4  
+
+
+***************************************Solution*******************************************
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-- > 0)
+        {
+            int n = sc.nextInt();
+            int[]arr = new int[n];
+            for(int i = 0; i < n; i++)
+            {
+                arr[i] = sc.nextInt();
+            }
+            int max = Integer.MIN_VALUE;
+            int len = 1;
+            for(int i = 1; i < n; i++)
+            {
+                if(arr[i] >= arr[i - 1])
+                    len++;
+                else 
+                {
+                    max = Math.max(len, max);
+                    len = 1;
+                }
+            }
+            max = Integer.max(max, len);
+            System.out.println(max);
+        }
+    }
+}
+
+1  
