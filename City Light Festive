@@ -1,0 +1,78 @@
+***********************************Problem**************************************
+The city is hosting a festival, and roads connecting intersections are decorated with lights. Starting at intersection 1,
+find all possible paths to the last intersection n without visiting any intersection more than once.
+
+Given a number of intersections n and a list of roads represented as edges between intersections, your task is to determine
+all paths from intersection 1 to intersection n, such that each intersection is visited at most once.
+
+Input Format
+
+An integer t representing the number of test cases.
+
+For each test case:
+
+An integer n, the number of intersections.
+
+An integer m, the number of edges.
+
+m lines, each containing two integers u and v, representing a road between intersections u and v.
+
+Constraints
+
+1≤t≤10
+
+2≤n≤15
+
+1≤m≤50
+
+Output Format
+
+For each test case, output a list of all possible paths as lists of integers, one per line for each test case.
+
+Sample Input 0
+
+1 5 5 1 2 2 5 1 3 3 4 4 5
+
+Sample Output 0
+
+1 2 5 1 3 4 5
+
+
+************************************Solution********************************
+----------------This one is solved by GPT soon , I be doing it with understanding the concepts.-------------------
+import java.util.Scanner;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        sc.nextLine();
+
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            sc.nextLine();
+            String s = sc.nextLine();
+
+            int male = 0, fem = 0, ans = 0;
+
+            for (char c : s.toCharArray()) {
+                if (c == 'M') male++;
+                else fem++;
+            }
+
+            while ((male + fem) >= 4 && fem > 0) {
+                ans++;
+                if (male >= 3) {
+                    male -= 3;
+                    fem--;
+                } else {
+                    int neededFemales = 4 - male;
+                    male = 0;
+                    fem -= neededFemales;
+                }
+            }
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+}
