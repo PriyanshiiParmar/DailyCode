@@ -40,39 +40,66 @@ Sample Output 0
 
 ************************************Solution********************************
 ----------------This one is solved by GPT soon , I be doing it with understanding the concepts.-------------------
-import java.util.Scanner;
+import java.util.*;
 
 public class Solution {
+
+    static List<List<Integer>> paths;
+    static boolean[] visited;
+    static List<List<Integer>> adj;
+
+    static void findPaths(int u, int dest, List<Integer> currentPath) {
+        visited[u] = true;
+        currentPath.add(u);
+
+        if (u == dest) {
+            paths.add(new ArrayList<>(currentPath));
+        } else {
+            for (int v : adj.get(u)) {
+                if (!visited[v]) {
+                    findPaths(v, dest, currentPath);
+                }
+            }
+        }
+
+        currentPath.remove(currentPath.size() - 1);
+        visited[u] = false;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
-        sc.nextLine();
 
         while (t-- > 0) {
             int n = sc.nextInt();
-            sc.nextLine();
-            String s = sc.nextLine();
+            int m = sc.nextInt();
 
-            int male = 0, fem = 0, ans = 0;
-
-            for (char c : s.toCharArray()) {
-                if (c == 'M') male++;
-                else fem++;
+            adj = new ArrayList<>(n + 1);
+            for (int i = 0; i <= n; i++) {
+                adj.add(new ArrayList<Integer>());
             }
 
-            while ((male + fem) >= 4 && fem > 0) {
-                ans++;
-                if (male >= 3) {
-                    male -= 3;
-                    fem--;
-                } else {
-                    int neededFemales = 4 - male;
-                    male = 0;
-                    fem -= neededFemales;
+            for (int i = 0; i < m; i++) {
+                int u = sc.nextInt();
+                int v = sc.nextInt();
+                adj.get(u).add(v);
+                adj.get(v).add(u);
+            }
+
+            paths = new ArrayList<>();
+            visited = new boolean[n + 1];
+            List<Integer> currentPath = new ArrayList<>();
+
+            findPaths(1, n, currentPath);
+
+            for (List<Integer> path : paths) {
+                for (int node : path) {
+                    System.out.print(node + " ");
                 }
+                System.out.println();
             }
-            System.out.println(ans);
         }
         sc.close();
     }
 }
+
