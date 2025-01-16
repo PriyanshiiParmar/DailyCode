@@ -1,0 +1,89 @@
+*************************************Problem*********************************
+The skyline of a city is represented by an array of building heights. Your task is to determine all possible unique
+skyline sequences that can be achieved by rearranging at most k buildings. The rearrangement can occur only within 
+the bounds of the given array, and the skyline must remain valid (heights must be non-negative integers).
+
+For example, given a skyline of [3,2,1] and k = 2, you can rearrange up to two buildings to create new skyline sequences.
+Your output should include all possible unique arrangements resulting from such rearrangements.
+
+Input Format
+
+An integer t, the number of test cases. For each test case: An integer n, the number of buildings. An array heights of size n,
+where each element represents the height of a building. An integer k, the maximum number of rearrangements allowed.
+
+Constraints
+
+1≤t≤5
+1≤n≤10
+0≤k≤n!
+0≤heights[i]≤100
+Output Format
+
+For each test case, output the total number of all unique skyline sequences that can be achieved.
+
+Sample Input 0
+
+1  
+3  
+3 2 1  
+2  
+Sample Output 0
+
+6 
+
+
+***********************************Solution***************************************
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int[] heights = new int[n];
+            for (int i = 0; i < n; i++) {
+                heights[i] = sc.nextInt();
+            }
+            int k = sc.nextInt();
+            Set<List<Integer>> uniqueSequences = new HashSet<>();
+            permute(heights, k, uniqueSequences);
+            System.out.println(uniqueSequences.size());
+        }
+        sc.close();
+    }
+
+    private static void permute(int[] heights, int k, Set<List<Integer>> uniqueSequences) {
+        generatePermutations(heights, 0, k, uniqueSequences);
+    }
+
+    private static void generatePermutations(int[] arr, int index, int k, Set<List<Integer>> uniqueSequences) {
+        if (index == arr.length) {
+            uniqueSequences.add(toList(arr));
+            return;
+        }
+        if (k > 0) {
+            for (int i = index; i < arr.length; i++) {
+                swap(arr, index, i);
+                generatePermutations(arr, index + 1, k - (i != index ? 1 : 0), uniqueSequences);
+                swap(arr, index, i);
+            }
+        } else {
+            uniqueSequences.add(toList(arr));
+        }
+    }
+
+    private static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    private static List<Integer> toList(int[] arr) {
+        List<Integer> list = new ArrayList<>();
+        for (int num : arr) {
+            list.add(num);
+        }
+        return list;
+    }
+}
