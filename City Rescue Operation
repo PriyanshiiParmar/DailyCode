@@ -1,0 +1,89 @@
+***********************************Problem***************************************
+The city is under attack, and firefighters need to rescue civilians trapped in several buildings. 
+The city is represented as an n × n grid where each cell is either:
+
+A building with civilians (1)
+A fire (2)
+An empty street (0)
+Firefighters can start from any cell containing civilians. From there, they can move up, down, left,
+or right to rescue more civilians while avoiding the fire. If they move into a fire cell (2), the rescue operation fails,
+and they cannot rescue anyone further from that path.
+
+Your task is to determine the maximum number of civilians that can be rescued from the city.
+
+Input Format
+
+An integer t, the number of test cases.
+For each test case:
+An integer n, the size of the grid.
+A 2D array grid of size n×n, where:
+grid[i][j]=1: Building with civilians.
+grid[i][j]=2: Fire.
+grid[i][j]=0: Empty street.
+Constraints
+
+1≤t≤10 1≤n≤8 At least one cell in the grid contains 1. grid contains at least one fire cell 2.
+
+Output Format
+
+For each test case, output a single integer representing the maximum number of civilians that can be rescued.
+
+Sample Input 0
+
+1  
+3  
+1 1 0  
+0 2 1  
+1 0 0  
+Sample Output 0
+
+4
+
+
+************************************Solution**************************************
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int[][] grid = new int[n][n];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    grid[i][j] = sc.nextInt();
+                }
+            }
+            System.out.println(escape(grid, n));
+        }
+        sc.close();
+    }
+
+    public static int escape(int[][] grid, int n) {
+        int max = 0;
+        boolean[][] visited;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 1) {
+                    visited = new boolean[n][n];
+                    max = Math.max(max, dfs(grid, i, j, visited, n));
+                }
+            }
+        }
+        return max;
+    }
+
+    public static int dfs(int[][] grid, int x, int y, boolean[][] visited, int n) {
+        if (x < 0 || y < 0 || x >= n || y >= n || grid[x][y] == 2 || visited[x][y]) {
+            return 0;
+        }
+        visited[x][y] = true;
+        int ans = (grid[x][y] == 1) ? 1 : 0;
+        int[][] moves = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        for (int[] move : moves) {
+            ans += dfs(grid, x + move[0], y + move[1], visited, n);
+        }
+        return ans;
+    }
+}
