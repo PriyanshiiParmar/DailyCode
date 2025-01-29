@@ -1,0 +1,71 @@
+****************************************Problem**********************************
+You manage an electric vehicle (EV) charging station with three types of chargers: slow, medium, and fast.
+Each second, you can either charge two vehicles using different types of chargers or one vehicle using any single type of charger.
+
+You are given a 0-indexed integer array amount of length 3 where:
+
+amount[0] represents the number of vehicles needing a slow charger.
+amount[1] represents the number of vehicles needing a medium charger.
+amount[2] represents the number of vehicles needing a fast charger.
+Print the minimum number of seconds required to charge all the vehicles.
+
+Input Format
+
+The first line contains T, the number of test cases.
+Each test case consists of an integer array amount of length 3, where:
+amount[0] denotes the number of vehicles needing a slow charger.
+amount[1] denotes the number of vehicles needing a medium charger.
+amount[2] denotes the number of vehicles needing a fast charger.
+Constraints
+
+1 <= T <= 1000
+amount.length == 3
+0 <= amount[i] <= 100
+Output Format
+
+For each test case, print the minimum number of seconds required to charge all the vehicles.
+
+Sample Input 0
+
+1  
+1 4 2
+Sample Output 0
+
+4
+Explanation 0
+
+One way to charge the vehicles is:
+
+Second 1: Charge a vehicle with a slow charger and a medium charger.
+Second 2: Charge a vehicle with a medium charger and a fast charger.
+Second 3: Charge a vehicle with a medium charger and a fast charger.
+Second 4: Charge a vehicle with a medium charger.
+It can be proven that 4 is the minimum number of seconds needed.
+
+
+
+****************************************Solution*************************************
+import java.util.Scanner;
+
+public class EVChargingStation {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int T = scanner.nextInt(); 
+        
+        for (int t = 0; t < T; t++) {
+            int[] amount = new int[3];
+            amount[0] = scanner.nextInt(); 
+            amount[1] = scanner.nextInt(); 
+            amount[2] = scanner.nextInt(); 
+            
+            int totalVehicles = amount[0] + amount[1] + amount[2];
+            int maxSingleType = Math.max(amount[0], Math.max(amount[1], amount[2]));
+            
+            int minSeconds = Math.max(maxSingleType, (totalVehicles + 1) / 2);
+            
+            System.out.println(minSeconds);
+        }
+        
+        scanner.close();
+    }
+}
