@@ -1,0 +1,100 @@
+******************************************************Problem****************************************************
+To maintain ecological balance, the Lake Council has introduced a rule to determine which lakes can be 
+ecologically linked. Two lakes can be linked if the name of one lake is a subsequence of the other.
+
+A lake A is said to be a subsequence of lake B if A can be obtained by deleting some characters from B
+without changing the order of the remaining characters.
+
+Your task is to determine whether two lakes can be linked according to the Lake Council’s rule.
+
+Input Format
+
+The first line contains an integer T, the number of test cases.
+Each test case consists of two space-separated strings L1 and L2, representing the names of two lakes.
+Constraints
+
+1 ≤ T ≤ 1000
+1 ≤ |L1|, |L2| ≤ 25000 (|L| denotes the length of the string L.)
+All lake names consist of lowercase English letters only.
+Output Format
+
+For each test case, print "YES" if the lakes can be linked, otherwise print "NO".
+
+Sample Input 0
+
+4  
+titicaca ititicaca
+chilika chilika  
+wular sambhar
+como caomo
+Sample Output 0
+
+YES
+YES  
+NO
+YES
+Explanation 0
+
+Case 1: "titicaca" and "ititicaca"
+
+We can form "titicaca" by removing the first 'i' from "ititicaca". The remaining characters match exactly.
+Hence, "titicaca" is a subsequence of "ititicaca", so the answer is "YES".
+
+Case 2: "chilika" and "chilika"
+
+Any string is trivially a subsequence of itself, as no characters need to be removed. Hence the answer is "YES".
+
+Case 3: "wular" and "sambhar"
+
+"sambhar" cannot be formed from "wular", as "wular" does not contain the characters 's', 'm', 'b' or 'h'. 
+Similar reasoning can be applied to see why "wular" can't be attained from "sambhar". Hence the answer is "NO".
+
+Case 4: "como" and "caomo" We can form "como" by removing the 'a' from "caomo". The remaining characters match exactly.
+Hence the answer is "YES".
+
+
+
+******************************************************Solution******************************************************
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        sc.nextLine(); 
+
+        while (t-- > 0) {
+            String s = sc.nextLine();
+            String ans = isSubsequence(s);
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+
+    public static String isSubsequence(String s) {
+        String[] strs = s.split("\\s+");
+
+        char[] s1 = strs[0].toCharArray();
+        char[] s2 = strs[1].toCharArray();
+
+        boolean isS1SubsequenceOfS2 = checkSubsequence(s1, s2);
+
+        boolean isS2SubsequenceOfS1 = checkSubsequence(s2, s1);
+
+        return (isS1SubsequenceOfS2 || isS2SubsequenceOfS1) ? "YES" : "NO";
+    }
+
+    private static boolean checkSubsequence(char[] s1, char[] s2) {
+        int i = 0, j = 0;
+        int n = s1.length, m = s2.length;
+
+        while (i < n && j < m) {
+            if (s1[i] == s2[j]) {
+                i++;
+            }
+            j++;
+        }
+
+        return i == n; 
+    }
+}
