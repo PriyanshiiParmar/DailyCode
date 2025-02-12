@@ -1,0 +1,84 @@
+****************************************Problem**********************************
+A group of n friends is enjoying a picnic by the riverbank. They sit in a circle 
+around a big picnic mat, numbered from 1 to n in clockwise order.
+
+To add some excitement to their day, they decide to play a passing game with a frisbee:
+
+The game starts with friend 1 holding the frisbee.
+Moving clockwise, they pass the frisbee k times, counting the friend they start with.
+If they reach the last person in the circle, they continue from the first person again.
+The friend who receives the frisbee on the kth pass is out of the game and goes to relax by the river.
+The next round starts with the friend immediately clockwise of the one who left.
+This continues until only one friend is left, who is declared the winner of the game!
+Input Format
+
+The first line contains T, the number of test cases.
+Each test case contains two integers n and k, representing the number of friends and the count number, respectively.
+Constraints
+
+1 <= T <= 1000
+1 <= k <= n <= 500
+Output Format
+
+For each test case, print the number of the last friend remaining in the game.
+
+Sample Input 0
+
+1
+5 2
+Sample Output 0
+
+3
+Explanation 0
+
+The elimination sequence follows these steps:
+
+Start at friend 1. Pass the frisbee 2 times (1 → 2). Friend 2 steps out to relax.
+Start at friend 3. Pass the frisbee 2 times (3 → 4). Friend 4 steps out.
+Start at friend 5. Pass the frisbee 2 times (5 → 1). Friend 1 steps out.
+Start at friend 3. Pass the frisbee 2 times (3 → 5). Friend 5 steps out.
+Friend 3 is the last one left and wins the game!
+Sample Input 1
+
+1
+6 5
+Sample Output 1
+
+1
+Explanation 1
+
+The elimination sequence follows as 5 → 4 → 6 → 2 → 3. The last friend remaining is friend 1, who wins the game!
+
+
+
+****************************************Solution******************************************
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int k = sc.nextInt();
+            ArrayList<Integer> list = new ArrayList<>();
+            for (int i = 1; i <= n; i++) {
+                list.add(i);
+            }
+            int ans = eliminatePlayer(list, k, 0);
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+
+    public static int eliminatePlayer(ArrayList<Integer> list, int k, int st) {
+        if (list.size() == 1)
+            return list.get(0);
+
+        int index = (st + k - 1) % list.size();
+        list.remove(index);
+
+        return eliminatePlayer(list, k, index);
+    }
+}
