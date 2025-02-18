@@ -1,0 +1,57 @@
+******************************** Reverse Pairs - LeetCode ************************************
+https://leetcode.com/problems/reverse-pairs/description/
+----------------------------------------------------------------------------------------------
+******************************* Solution ********************************
+class Solution {
+    public int reversePairs(int[] nums) {
+        int n = nums.length;
+        return mergeSort(nums, 0, n - 1);
+    }
+
+    public static int mergeSort(int[] nums, int left, int right) {
+        if (left >= right) return 0;
+
+        int mid = left + (right - left) / 2;
+        int cnt = mergeSort(nums, left, mid) + mergeSort(nums, mid + 1, right);
+        cnt += cntPairs(nums, left, mid, right);
+        merge(nums, left, mid, right);
+        return cnt;
+    }
+
+    public static int cntPairs(int[] nums, int left, int mid, int right) {
+        int j = mid + 1;
+        int cnt = 0;
+        
+        for (int i = left; i <= mid; i++) {
+            while (j <= right && (long) nums[i] > 2L * nums[j]) {
+                j++;
+            }
+            cnt += (j - (mid + 1));
+        }
+        
+        return cnt;
+    }
+
+    public static void merge(int[] nums, int left, int mid, int right) {
+        int i = left, j = mid + 1;
+        int[] tmp = new int[right - left + 1];
+        int k = 0;
+
+        while (i <= mid && j <= right) {
+            if (nums[i] <= nums[j]) {
+                tmp[k++] = nums[i++];
+            } else {
+                tmp[k++] = nums[j++];
+            }
+        }
+
+        while (i <= mid) {
+            tmp[k++] = nums[i++];
+        }
+        while (j <= right) {
+            tmp[k++] = nums[j++];
+        }
+
+        System.arraycopy(tmp, 0, nums, left, tmp.length);
+    }
+}
