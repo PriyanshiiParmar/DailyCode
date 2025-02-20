@@ -1,0 +1,28 @@
+******************************************Problem***********************************
+Ceil The Floor - https://www.geeksforgeeks.org/problems/ceil-the-floor2802/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=ceil-the-floor
+
+
+
+**************************************Solution************************************
+class Solution {
+    public int[] getFloorAndCeil(int x, int[] arr) {
+        // code here
+        int ceil = -1, floor = -1;
+        for(int i = 0; i < arr.length; i++)
+        {
+            if(arr[i] <= x)
+            {
+                ceil = Math.max(ceil, arr[i]);
+            }
+            if(arr[i] >= x)
+            {
+                if(floor != -1)
+                {
+                    floor = Math.min(floor, arr[i]);
+                }
+                else floor = arr[i];
+            }
+        }
+        return new int[]{ceil, floor};
+    }
+}
