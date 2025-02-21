@@ -1,0 +1,47 @@
+**********************************Problem**************************************
+Search in Rotated Sorted Array - https://leetcode.com/problems/search-in-rotated-sorted-array/description/
+
+
+*********************************Solution***********************************
+class Solution {
+    public static int getPivot(int[]arr)
+    {
+        int n = arr.length;
+        int i = 0;
+        while(i < n - 1)
+        {
+            if(arr[i] < arr[i+1])
+            i++;
+            else 
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    public static int binarySearch(int[]arr, int tar, int left, int right)
+    {
+        while(left <= right)
+        {
+            int mid = left + (right - left) / 2;
+            if(arr[mid] == tar)
+            return mid;
+            if(arr[mid] < tar)
+            left = mid + 1;
+            else right = mid - 1;
+        }
+        return -1;
+    }
+    public int search(int[] nums, int tar) {
+        int pivot = getPivot(nums);
+        int n = nums.length;
+        if(pivot == -1)
+        {
+            return binarySearch(nums, tar, 0, n - 1);
+        }
+        int ans = binarySearch(nums, tar, 0, pivot);
+        if(ans != -1)
+        return ans;
+        return binarySearch(nums, tar, pivot + 1, n - 1);
+    }
+}
