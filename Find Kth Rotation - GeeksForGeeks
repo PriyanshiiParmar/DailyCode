@@ -1,0 +1,21 @@
+********************************** Problem ********************************
+Find Kth Rotation - https://www.geeksforgeeks.org/problems/rotation4723/1?utm_source=youtube
+
+
+******************************* Solution *******************************
+class Solution {
+    public int findKRotation(List<Integer> arr) {
+        // Code here
+        int n = arr.size();
+        int i = 0, k = 0;
+        while(i < n - 1)
+        {
+            if(arr.get(i) <= arr.get(i+1))
+            {
+                i++;
+            }
+            else return i + 1;
+        }
+        return 0;
+    }
+}
