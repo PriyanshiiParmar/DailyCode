@@ -1,0 +1,23 @@
+****************************** Problem ***********************************
+Find Minimum in Rotated Sorted Array - https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/
+
+******************************** Solution ******************************
+class Solution 
+{
+    public static int findPeak(int[]arr)
+    {
+        int  n = arr.length, i = 0;
+        while(i < n - 1)
+        {
+            if(arr[i] < arr[i+1])
+            i++;
+            else return i;
+        }
+        return -1;
+    }
+    public int findMin(int[] nums) 
+    {
+        int peak = findPeak(nums);    
+        return peak == -1 ? nums[0] : nums[peak+1];
+    }
+}
