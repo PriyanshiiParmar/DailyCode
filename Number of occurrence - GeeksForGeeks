@@ -1,0 +1,47 @@
+********************************** Problem ***********************************
+Number of occurrence --- https://www.geeksforgeeks.org/problems/number-of-occurrence2259/1?utm_source=youtube
+
+
+
+************************************ Solution *********************************
+
+class Solution {
+    int countFreq(int[] arr, int target) {
+        // code here
+        int curPos = findTarget(arr, target);
+        if(curPos == -1)
+        return 0;
+        int cnt = findOccurence(arr, curPos);
+        return cnt;
+    }
+    public static int findOccurence(int[]arr, int k)
+    {
+        int left = 0, right = arr.length;
+        int cur = k, i = k - 1, j = k + 1, cnt = 1;
+        while(i >= left &&arr[i] == arr[k])
+        {
+            cnt++;
+            i--;
+        }
+        while(j < right && arr[j] == arr[k])
+        {
+            cnt++;
+            j++;
+        }
+        return cnt;
+    }
+    public static int findTarget(int[]arr, int tar)
+    {
+        int left = 0, n = arr.length, right = n - 1;
+        while(left <= right)
+        {
+            int mid = left + (right - left) / 2;
+            if(arr[mid] == tar)
+            return mid;
+            if(arr[mid] < tar)
+            left = mid + 1;
+            else right = mid - 1;
+        }
+        return -1;
+    }
+}
