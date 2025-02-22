@@ -1,0 +1,20 @@
+*************************************** Problem ****************************************
+Single Element in a Sorted Array - https://leetcode.com/problems/single-element-in-a-sorted-array/description/
+
+
+
+***************************************** Solution **************************************
+class Solution {
+    public int singleNonDuplicate(int[] nums) {
+        int i = 0, n = nums.length;
+        while(i < n - 1)
+        {
+            if(nums[i] != nums[i+1])
+            return nums[i];
+            i += 2;
+        }
+        return nums[n - 1];
+    }
+}
+
+
