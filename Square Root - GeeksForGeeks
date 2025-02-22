@@ -1,0 +1,27 @@
+*************************************** Problem *********************************************
+Square Root -- https://www.geeksforgeeks.org/problems/square-root/0?utm_source=youtube
+
+
+************************************** Solution ******************************************
+class Solution {
+    int floorSqrt(int n) {
+        // Your code here
+        int low = 1, high = n / 2;
+        int ans = -1;
+        if(n == 1)
+        return 1;
+        while(low <= high)
+        {
+            int mid = low + (high - low) / 2;
+            if(mid == n / mid)
+            return mid;
+            if(mid < n / mid)
+            {
+                ans = mid;
+                low = mid + 1;
+            }
+            else high = mid - 1;
+        }
+        return ans;
+    }
+}
