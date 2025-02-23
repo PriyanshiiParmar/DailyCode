@@ -1,0 +1,47 @@
+************************************* Problem **************************************
+Minimum Number of Days to Make m Bouquets - https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/description/
+
+
+*************************************** Solution ************************************
+class Solution {
+    public int minDays(int[] arr, int m, int k) {
+        int n = arr.length;
+        if(n < m * k)
+        return -1;
+        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+        for(int i = 0; i < n;i++)
+        {
+            min = Math.min(arr[i], min);
+            max = Math.max(arr[i], max);
+        }
+        int left = min, right = max, ans = -1;
+        while(left <= right)
+        {
+            int mid = left + (right - left) / 2;
+            int bq = countBq(arr, k, mid);
+            if(bq < m)
+            left = mid + 1;
+            else{
+                ans = mid;
+                right = mid - 1;
+            }
+        }
+        return ans;
+    }
+    public static int countBq(int[]arr, int k , int mid)
+    {
+        int cnt = 0, bq = 0;
+        for(int i = 0; i < arr.length; i++)
+        {
+            if(arr[i] <= mid)
+            cnt++;
+            else{
+                bq += cnt / k;
+                cnt = 0;
+            }
+        }
+        if(cnt != 0)
+        bq += cnt / k;
+        return bq;
+    }
+}
