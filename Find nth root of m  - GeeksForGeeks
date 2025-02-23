@@ -1,0 +1,22 @@
+****************************** Problem *********************************
+Find nth root of m - 
+--https://www.geeksforgeeks.org/problems/find-nth-root-of-m5843/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=find-nth-root-of-m
+
+****************************** Solution ******************************
+class Solution {
+    public int nthRoot(int n, int m) {
+        // code here
+        int low = 1, high = m;
+        while(low <= high)
+        {
+            int mid = low + (high - low) / 2;
+            if(Math.pow(mid, n) == m)
+            return mid;
+            if(Math.pow(mid, n) < m)
+            low = mid + 1;
+            else 
+            high = mid - 1;
+        }
+        return -1;
+    }
+}
