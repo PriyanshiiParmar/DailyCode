@@ -1,0 +1,41 @@
+******************************** Problem ***********************************
+ Find the Smallest Divisor Given a Threshold - https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/description/
+
+
+
+*********************************** Solution **************************************
+class Solution {
+    public int smallestDivisor(int[] nums, int threshold) {
+        int n = nums.length;
+        int max = Integer.MIN_VALUE;
+        for(int i = 0; i < n; i++)
+        {
+            max = Math.max(max, nums[i]);
+        }
+        int left = 1, right = max, ans = -1, sum = Integer.MAX_VALUE;
+        while(left <= right)
+        {
+            int mid = left + (right - left) / 2;
+            int curSum = getSum(nums, mid);
+            if(curSum <= threshold )
+            {
+                sum = curSum;
+                ans = mid;
+                right = mid - 1;
+            }
+            else{
+                left = mid + 1;
+            }
+        }
+        return ans;
+    }
+    public static int getSum(int[]arr, int k)
+    {
+        int sum = 0;
+        for(int i = 0; i < arr.length; i++)
+        {
+            sum += Math.ceil((double) arr[i] / (double) k);
+        }
+        return sum;
+    }
+}
