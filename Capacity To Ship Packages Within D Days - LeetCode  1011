@@ -1,0 +1,45 @@
+************************** Problem ******************************
+Capacity To Ship Packages Within D Days - https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/description/
+
+
+****************************** Solution ****************************** 
+class Solution 
+{
+    public int shipWithinDays(int[] w, int days) 
+    {
+        int sum = 0, max = Integer.MIN_VALUE;
+        for(int i = 0; i < w.length; i++)
+        {
+            sum += w[i];
+            max = Math.max(max, w[i]);
+        }
+        int left = max, right = sum;
+        while(left <= right)
+        {
+            int mid = left + (right - left) / 2;
+            int d = calcDays(w, mid);
+            if(d <= days)
+            {
+                right = mid - 1;
+            }
+            else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+    public static int calcDays(int[]arr, int k)
+    {
+        int sum = 0, day = 1;
+        for(int i = 0; i < arr.length; i++)
+        {
+            if(sum + arr[i] > k)
+            {
+                day++;
+                sum = arr[i];
+            }
+            else sum += arr[i];
+        }
+        return day;
+    }
+}
