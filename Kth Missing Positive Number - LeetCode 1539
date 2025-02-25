@@ -1,0 +1,24 @@
+************************************* Question *************************************
+Kth Missing Positive Number - https://leetcode.com/problems/kth-missing-positive-number/description/
+
+
+************************************* Solution ***************************************
+class Solution {
+    public int findKthPositive(int[] arr, int k) {
+        List<Integer> list = new ArrayList<>();
+        int n = arr.length, j = 0;
+        for(int i = 1; i <= arr[n - 1]; i++)
+        {
+            if(j < n && arr[j] == i)
+            {
+                j++;
+            }
+            else list.add(i);
+        }
+        if (k <= list.size()) {
+            return list.get(k - 1); 
+        }
+
+        return arr[n - 1] + (k - list.size()); 
+    }
+}
