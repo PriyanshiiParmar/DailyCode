@@ -1,0 +1,21 @@
+****************************** Problem *********************************
+Search a 2D Matrix - https://leetcode.com/problems/search-a-2d-matrix/description/
+
+
+****************************** Solution *******************************
+class Solution 
+{
+    public boolean searchMatrix(int[][] mat, int tar) 
+    {
+        int row = 0, col = mat[0].length - 1;
+        while(row < mat.length && col >= 0)
+        {
+            if(mat[row][col] == tar)
+            return true;
+            if(mat[row][col] > tar)
+            col--;
+            else row++;
+        }
+        return false;
+    }
+}
