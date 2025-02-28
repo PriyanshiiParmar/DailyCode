@@ -1,0 +1,25 @@
+******************************** Problem ***********************************
+Median in a row-wise sorted Matrix - https://www.geeksforgeeks.org/problems/median-in-a-row-wise-sorted-matrix1527/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=median-in-a-row-wise-sorted-matrix
+
+
+********************************** Solution ********************************
+
+class Solution {
+    int median(int mat[][]) {
+        int m = mat.length, n = mat[0].length;
+        int[]arr = new int[m*n];
+        int k = 0;
+        for(int i = 0; i < m; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                arr[k] = mat[i][j];
+                k++;
+            }
+        }
+        Arrays.sort(arr);
+        int mid = (arr.length + 1) / 2;
+        int median = arr[mid - 1];
+        return median;
+    }
+}
