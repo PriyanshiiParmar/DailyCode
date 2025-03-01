@@ -1,0 +1,41 @@
+************************************** Problem *******************************************
+Split Array Largest Sum - https://leetcode.com/problems/split-array-largest-sum/description/
+
+
+************************************** Solution ***********************************
+class Solution {
+    public int splitArray(int[] nums, int k) {
+        int n = nums.length, sum = 0, max = Integer.MIN_VALUE;
+        for(int i = 0; i < n; i++)
+        {
+            sum += nums[i];
+            max = Math.max(max, nums[i]);
+        }
+        int low = max, high = sum;
+        while(low <= high)
+        {
+            int mid = low + (high - low) / 2;
+            int cnt = countSplit(nums, mid);
+            if(cnt > k)
+            low = mid + 1;
+            else high = mid - 1;
+        }
+        return low;
+    }
+    public static int countSplit(int[]arr, int k)
+    {
+        int cnt = 1, sum = 0;
+        for(int i = 0; i < arr.length; i++)
+        {
+            if(sum + arr[i] > k)
+            {
+                cnt++;
+                sum = arr[i];
+            }
+            else{
+                sum += arr[i];
+            }
+        }
+        return cnt;
+    }
+}
