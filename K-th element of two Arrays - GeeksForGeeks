@@ -1,0 +1,29 @@
+********************************* Problem ******************************8
+K-th element of two Arrays - https://www.geeksforgeeks.org/problems/k-th-element-of-two-sorted-array1317/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=k-th-element-of-two-sorted-array
+
+****************************** Solution ********************************
+class Solution {
+    public int kthElement(int a[], int b[], int l) {
+        // code here
+        int n = a.length, m = b.length, i = 0, j = 0, k = 0;
+        int mid = -1;
+        int[]tmp = new int[m+n];
+        while(i < n && j < m)
+        {
+            if(a[i] > b[j])
+            {
+                tmp[k++] = b[j++];
+            }
+            else tmp[k++] = a[i++];
+        }
+        while(i < n)
+        {
+            tmp[k++] = a[i++];
+        }
+        while(j < m)
+        {
+            tmp[k++] = b[j++];
+        }
+        return tmp[l-1];
+    }
+}
