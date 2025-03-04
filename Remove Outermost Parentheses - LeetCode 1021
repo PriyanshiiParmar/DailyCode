@@ -1,0 +1,31 @@
+******************************* Probelm ************************************
+Remove Outermost Parentheses - https://leetcode.com/problems/remove-outermost-parentheses/description/
+
+****************************** Solution **********************************
+class Solution {
+    public String removeOuterParentheses(String s) {
+        int dep = 0;
+        StringBuilder res = new StringBuilder();
+        for(char ch : s.toCharArray())
+        {
+            if(ch == '(')
+            {
+                if(dep > 0)
+                {
+                    res.append(ch);
+                }
+                dep++;
+            }
+            else{
+                dep--;
+                if(dep > 0)
+                {
+                    res.append(ch);
+                }
+            }
+        }
+        return res.toString();
+    }
+}
+
+        
