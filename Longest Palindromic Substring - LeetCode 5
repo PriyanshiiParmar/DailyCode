@@ -1,0 +1,45 @@
+******************************* Problem ********************************
+Longest Palindromic Substring -  https://leetcode.com/problems/longest-palindromic-substring/description/
+
+
+*********************************** Solution *************************************
+class Solution {
+    public String longestPalindrome(String s) {
+        int n = s.length();
+        if(n < 2)
+        return s;
+        String ans = "";
+        for(int i = 0; i < n - 1; i++)
+        {
+            for(int j = i + 1; j <= n; j++)
+            {
+                String sub = getSubstring(s.substring(i, j));
+                if(sub.length() > ans.length())
+                {
+                    ans = sub;
+                }
+            }
+        }
+        return ans;
+    }
+    public static String getSubstring(String s)
+    {
+        if(isPalindrome(s))
+        {
+            return s;
+        }
+        else return "";
+    }
+    public static boolean isPalindrome(String s)
+    {
+        int i = 0, j = s.length() - 1;
+        while(i < j)
+        {
+            if(s.charAt(i) != s.charAt(j))
+            return false;
+            i++;
+            j--;
+        }
+        return true;
+    }
+}
