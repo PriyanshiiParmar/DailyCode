@@ -1,0 +1,65 @@
+********************* Problm ************************
+Roman to Integer - https://leetcode.com/problems/roman-to-integer/description/
+
+************************** Solution *************************
+class Solution {
+    public int romanToInt(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        map.put('M', 1000);
+        map.put('D', 500);
+        map.put('C', 100);
+        map.put('L', 50);
+        map.put('X', 10);
+        map.put('V', 5);
+        map.put('I', 1);
+
+        int sum = 0;
+        for (int i = 0; i < s.length() - 1; i++) {
+            if (map.get(s.charAt(i)) >= map.get(s.charAt(i + 1))) {
+                sum += map.get(s.charAt(i));
+            } else {
+                sum -= map.get(s.charAt(i));
+            }
+        }
+        sum += map.get(s.charAt(s.length() - 1));  
+        return sum;
+    }
+}
+
+------------ using special case and substring function -----------------
+class Solution {
+    public int romanToInt(String s) {
+        // int[] val = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        // String[] notation = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        Map<String, Integer> map = new HashMap<>();
+        int sum = 0;
+        map.put("M" ,1000);
+        map.put("CM" , 900);
+        map.put("D" , 500);
+        map.put("CD" , 400);
+        map.put("C" , 100);
+        map.put("XC" , 90);
+        map.put("L", 50);
+        map.put("XL" , 40);
+        map.put("X", 10);
+        map.put("IX" , 9);
+        map.put("V" , 5);
+        map.put("IV" , 4);
+        map.put("I" , 1);
+        int i = 0;
+        while(i < s.length())
+        {
+            if(i < s.length() - 1 && map.containsKey(s.substring(i, i + 2)))
+            {
+                sum += map.get(s.substring(i, i+2));
+                i += 2;
+            }
+            else {
+                sum += map.get(s.substring(i, i + 1));
+                i++;
+                }
+
+        }
+        return sum;
+    }
+}
