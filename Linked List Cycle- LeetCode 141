@@ -1,0 +1,20 @@
+******************************** Problem **********************************
+Linked List Cycle - https://leetcode.com/problems/linked-list-cycle/description/
+
+
+******************************* Solution ***********************************
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        ArrayList<ListNode> visited = new ArrayList<>();
+        ListNode tmp = head;
+
+        while (tmp != null) {
+            if (visited.contains(tmp)) {
+                return true; 
+            }
+            visited.add(tmp);
+            tmp = tmp.next;
+        }
+        return false; 
+    }
+}
