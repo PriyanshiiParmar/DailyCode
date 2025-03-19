@@ -1,0 +1,26 @@
+************************************* Problem *********************************************
+Linked List Cycle II - https://leetcode.com/problems/linked-list-cycle-ii/description/
+
+*********************************** Solution *********************************
+----------------- Solved using brute force, optimization is yet to be done -------------------
+
+public class Solution 
+{
+    public ListNode detectCycle(ListNode head) 
+    {
+        ListNode tmp = head;
+        ListNode ans = null;
+        ArrayList<ListNode> visited = new ArrayList<>();
+        while(tmp != null)
+        {
+            if(visited.contains(tmp))
+            {
+                ans = tmp;
+                return tmp;
+            }
+            visited.add(tmp);
+            tmp = tmp.next;
+        }        
+        return ans;
+    }
+}
