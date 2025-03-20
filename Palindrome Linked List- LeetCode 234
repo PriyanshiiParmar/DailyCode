@@ -1,0 +1,39 @@
+************************ Problem **************************
+Palindrome Linked List - https://leetcode.com/problems/palindrome-linked-list/description/
+
+************************** Solution **************************
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        ListNode slow = head, fast = head;
+        if (head == null || head.next == null) return true;
+        ListNode mid;
+        while(fast != null && fast.next != null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        mid = slow;
+        ListNode secHalf = reverseList(mid);
+        ListNode firHalf = head;
+        while(secHalf != null)
+        {
+            if(firHalf.val != secHalf.val)
+            return false;
+            firHalf = firHalf.next;
+            secHalf = secHalf.next;
+        }
+        return true;
+    }
+    public static ListNode reverseList(ListNode head)
+    {
+        ListNode cur = head, prev = null;
+        while(cur != null)
+        {
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        return prev;
+    }
+}
