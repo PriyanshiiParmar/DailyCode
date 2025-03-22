@@ -1,0 +1,100 @@
+********************** Problem ***********************
+Odd Even Linked List - https://leetcode.com/problems/odd-even-linked-list/description/
+
+
+****************************** Solution *******************************
+-------------------EXTREME BRUTE FORCE-------------------
+class Solution 
+{
+    public ListNode oddEvenList(ListNode head) 
+    {
+        if(head == null)
+        return head;
+        ListNode tmp = head;
+        ListNode traverse = head;
+        int size = 1;
+        ArrayList<Integer> odd = new ArrayList<>();
+        ArrayList<Integer> even = new ArrayList<>();
+        while(tmp.next != null)
+        {
+            if(size % 2 == 0)
+            even.add(tmp.val);
+            else odd.add(tmp.val);
+            tmp = tmp.next;
+            size++;
+        }    
+        if(size % 2 == 0)
+        even.add(tmp.val);
+        else odd.add(tmp.val);
+        int i = 0, j = 0;
+        while(i < odd.size())
+        {
+            traverse.val = odd.get(i);
+            traverse = traverse.next;
+            i++;
+        }
+        while(j < even.size())
+        {
+            traverse.val = even.get(j);
+            traverse = traverse.next;
+            j++;
+        }
+        return head;
+    }
+}
+
+
+------------------ A LITTLE OPTIMIZED ----------------
+class Solution 
+{
+    public ListNode oddEvenList(ListNode head) 
+    {
+        if(head == null)
+        return head;
+        ListNode tmp = head;
+        ListNode traverse = head;
+        ArrayList<Integer> list = new ArrayList<>();
+        while(tmp != null && tmp.next != null)
+        {
+            list.add(tmp.val);
+            tmp = tmp.next.next;
+        }   
+        if(tmp != null)
+        list.add(tmp.val);
+        tmp = head.next;
+        while(tmp != null && tmp.next != null)
+        {
+            list.add(tmp.val);
+            tmp = tmp.next.next;
+        } 
+        if(tmp != null)
+        list.add(tmp.val);
+        int i = 0;
+        while(i < list.size())
+        {
+            traverse.val = list.get(i);
+            traverse = traverse.next;
+            i++;
+        }
+        return head;
+    }
+}
+
+------------------ OPTIMIZED ONE -------------------
+class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        if(head == null)
+        return head;
+        ListNode odd = head;
+        ListNode evenHead = head.next, even = head.next;
+        while(even != null && even.next != null)
+        {
+            odd.next = odd.next.next;
+            even.next = even.next.next;
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = evenHead;
+        return head;
+    }
+}
