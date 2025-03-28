@@ -1,0 +1,19 @@
+***************************** Problem ***********************************
+Search in Linked List - https://www.geeksforgeeks.org/problems/search-in-linked-list-1664434326/1?utm_source=youtube 
+
+****************************** Solution ************************************
+class Solution {
+    static boolean searchKey(int n, Node head, int key) {
+        // Code here
+        Node tmp = head;
+        int i = 1;
+        while(i <= n)
+        {
+            if(tmp.data == key)
+            return true;
+            tmp = tmp.next;
+            i++;
+        }
+        return false;
+    }
+}
