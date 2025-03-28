@@ -1,0 +1,25 @@
+****************************** Problem ******************************
+Delete in a Doubly Linked List - https://www.geeksforgeeks.org/problems/delete-node-in-doubly-linked-list/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=delete-node-in-doubly-linked-list
+
+****************************** Solution *****************************
+class Solution {
+    public Node deleteNode(Node head, int x) {
+        // code here
+        Node tmp = head;
+        if(x == 1)
+        {
+            head = head.next;
+            if(head != null)
+            head.prev = null;
+            return head;
+        }
+        while(x > 1)
+        {
+            tmp = tmp.next;
+            x--;
+        }
+        if(tmp.prev != null) tmp.prev.next = tmp.next;
+        if(tmp.next != null) tmp.next.prev = tmp.prev;
+        return head;
+    }
+}
