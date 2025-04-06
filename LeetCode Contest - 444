@@ -1,0 +1,46 @@
+ *************************************** LEETCODE CONTEST 444  **************************************
+-------------------------- FIRST QUESTION -------------------------------
+Q1. Minimum Pair Removal to Sort Array I
+
+
+----------------------------- SOLUTION ------------------------------
+class Solution 
+{
+    public int minimumPairRemoval(int[] nums) 
+    {
+        if(isAlreadySorted(nums))
+            return 0;
+        int cnt = 0;
+        while(!isAlreadySorted(nums))
+            {
+                int sum = 0, minSum = Integer.MAX_VALUE, minIndex = -1;
+                for(int j = 0; j < nums.length - 1; j++)
+                    {
+                        sum = nums[j] + nums[j+1];
+                        if(minSum > sum)
+                        {
+                            minSum = sum;
+                            minIndex = j;
+                        }
+                    }
+                //merge 
+                nums[minIndex] = nums[minIndex] + nums[minIndex + 1];
+                for(int i = minIndex + 1; i < nums.length - 1; i++)
+                    {
+                        nums[i] = nums[i + 1];
+                    }
+                nums = Arrays.copyOf(nums, nums.length - 1);
+                cnt++; 
+            }
+        return cnt;
+    }
+    public static boolean isAlreadySorted(int[]nums)
+    {
+        for(int i = 0; i < nums.length - 1; i++)
+            {
+                if(nums[i] > nums[i + 1])
+                    return false;
+            }
+        return true;
+    }
+}
