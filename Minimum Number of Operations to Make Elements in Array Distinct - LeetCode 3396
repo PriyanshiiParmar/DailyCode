@@ -1,0 +1,38 @@
+ ************************************** Problem **************************************
+Minimum Number of Operations to Make Elements in Array Distinct - https://leetcode.com/problems/minimum-number-of-operations-to-make-elements-in-array-distinct/description/?envType=daily-question&envId=2025-04-08
+ ************************************** Solution **************************************
+class Solution {
+    public int minimumOperations(int[] nums) {
+        ArrayList<Integer> list = new ArrayList<>();
+        for(int i = 0; i < nums.length; i++)
+        {
+            list.add(nums[i]);
+        }
+        System.out.println(list);
+        if(isDistinct(list)) return 0;
+        int cnt = 0;
+        while(!isDistinct(list))
+        {
+            int k = list.size() >= 3 ? 3 : list.size();
+            while(k-- > 0)
+            {
+                list.remove(0);
+            }
+            cnt++;
+            System.out.println(list);
+        }
+        return cnt;
+    }
+    public static boolean isDistinct(ArrayList<Integer> list)
+    {
+        ArrayList<Integer> dupli = new ArrayList<>();
+        if(list.size() == 0) return true;
+        for(int i = 0; i < list.size(); i++)
+        {
+            if(dupli.contains(list.get(i)))
+            return false;
+            dupli.add(list.get(i));
+        }
+        return true;
+    }
+}
