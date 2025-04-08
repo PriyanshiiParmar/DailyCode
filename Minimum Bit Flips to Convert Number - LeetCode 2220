@@ -1,0 +1,16 @@
+***************************** Problem *****************************
+Minimum Bit Flips to Convert Number - https://leetcode.com/problems/minimum-bit-flips-to-convert-number/description/
+
+***************************** Solution *****************************
+class Solution {
+    public int minBitFlips(int start, int goal) {
+        int xorBit = start ^ goal;
+        int cnt = 0;
+        while(xorBit != 0)
+        {
+            cnt += xorBit & 1;
+            xorBit = xorBit >> 1;
+        }
+        return cnt;
+    }
+}
