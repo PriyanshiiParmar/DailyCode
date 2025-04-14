@@ -1,0 +1,98 @@
+************************************** Problem **************************************
+ Min Stack - https://leetcode.com/problems/min-stack/description/
+
+
+
+************************************** Solution **************************************
+------------------------- BRUTE FORCE USING ARRAYLIST ---------------------
+class MinStack {
+
+    int min = Integer.MAX_VALUE, size = -1;
+    Stack<Integer> minstack;
+    ArrayList<Integer> st = new ArrayList<>();
+
+    public MinStack() {
+        minstack = new Stack<>();
+    }
+    
+    public void push(int val) {
+        if(val < min){
+            min = val;
+        }
+        minstack.push(val);
+        st.add(val);
+        size++;
+    }
+
+
+    public void pop() {
+        if(size != -1)
+        minstack.pop();
+       if (!st.isEmpty()) {
+    int removed = st.remove(st.size() - 1);
+    System.out.println("Popped: " + removed);
+}
+        size--;
+    }
+    
+    public int top() {
+        if(size != -1)
+        return minstack.peek();
+        return -1;
+    }
+    
+    public int getMin() {
+        int ans = Integer.MAX_VALUE;
+        for(int i = 0; i < st.size(); i++)
+        {
+            if(st.get(i) < ans)
+            ans = st.get(i);
+        }
+        return ans;
+    }
+}
+
+
+-------------------------------- OPTIMIZED APPROACH ----------------------------------
+class MinStack {
+
+    int min = Integer.MAX_VALUE, size = -1;
+    Stack<Integer> minstack;
+    Stack<Integer> minVal;
+
+    public MinStack() {
+        minstack = new Stack<>();
+        minVal = new Stack<>();
+    }
+    
+    public void push(int val) {
+        minstack.push(val);
+        if(minVal.isEmpty())
+        {
+            minVal.push(val);
+        }else{
+            minVal.push(Math.min(minVal.peek(), val));
+        }
+        size++;
+    }
+
+
+    public void pop() {
+        if(size != -1)
+        {
+            minstack.pop();
+            minVal.pop();
+        }
+        size--;
+    }
+    
+    public int top() {
+        if(size != -1)
+        return minstack.peek();
+        return -1;
+    }
+    
+    public int getMin() {
+       return minVal.peek();
+    }
+}
