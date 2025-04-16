@@ -1,0 +1,53 @@
+******************************* Problem ********************************
+Next Greater Element II - https://leetcode.com/problems/next-greater-element-ii/description/
+
+******************************* Solution ********************************
+----------------------------- WITHOUT STACK -----------------------------
+class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+        int[]res = new int[nums.length];
+        int k = 0;
+        for(int i = 0; i < nums.length; i++)
+        {
+            int j = (i + 1) % nums.length, cnt = 0;
+            boolean found = false;
+            while(cnt < nums.length - 1)
+            {
+                if(nums[j] > nums[i])
+                {
+                    res[k++] = nums[j];
+                    found = true;
+                    break;
+                }
+                j = (j + 1) % nums.length;
+                cnt++;
+            }
+            if(!found)
+            res[k++] = -1;
+        }
+        return res;
+    }
+}
+
+
+-------------------------------- USING STACK -----------------------------------
+class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+        int n = nums.length, k = 0;
+        int[]res = new int[n];
+        Stack<Integer> st = new Stack<>();
+        for(int i = 2 * n - 1; i >= 0; i--)
+        {
+            int idx = i % n;
+            while (!st.isEmpty() && st.peek() <= nums[idx]) {
+                st.pop();
+            }
+            if(i < n)
+            {
+               res[idx] = st.isEmpty() ? -1 : st.peek();
+            }
+            st.push(nums[idx]);
+        }
+        return res;
+    }
+}
