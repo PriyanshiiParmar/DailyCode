@@ -1,0 +1,79 @@
+****************************************** Probelm ******************************************
+Sum of Subarray Minimums - https://leetcode.com/problems/sum-of-subarray-minimums/description/
+----------------------------- BRUTE FORCE  ----------------------------
+
+// Brute force is based on generating all the possible subarrays, finding the minimum out of them 
+// and adding it to the sum.
+// This approach is using around time complexity of O(n^2) , so we need to optimize it further.
+
+------------ JAVA SOLUTION ----------------
+class Solution {
+    public int sumSubarrayMins(int[] arr) {
+        int sum = 0;
+        for(int i = 0; i < arr.length; i++)
+        {
+            int min = Integer.MAX_VALUE;
+            for(int j = i; j < arr.length; j++)
+            {
+                min = Math.min(min, arr[j]);
+                sum += min;
+            }
+        }
+        return sum;
+    }
+}
+
+
+-------------------------- OPTIMIZED APPROACH ----------------------------
+// The above approach is a brute force and gives us time limit, so we need to optimized this, 
+// here we used the idea of calculating the contribution of each element in the minimum range and then adding it to the answer
+class Solution {
+    public int sumSubarrayMins(int[] arr) {
+        long sum = 0;
+        int mod = 1_000_000_007;
+        int[]left = prevSmaller(arr);//storing indices of smaller element on left of i
+        int[]right = nextSmaller(arr);//storing indices of smaller element on right of i
+        for(int i = 0; i < arr.length; i++)
+        {
+            int ls = i - left[i];
+            int rs = right[i] - i;
+            long total = ((long) ls * rs % mod * arr[i] % mod) % mod;
+            sum = (sum + total) % mod;
+        }
+        return (int)sum;
+    }
+    public static int[] prevSmaller(int[]arr)
+    {
+        int n = arr.length;
+        Stack<Integer> st = new Stack<>();
+        int[]res = new int[n];
+        for(int i = 0; i < n; i++)
+        {
+            while(!st.isEmpty() && arr[st.peek()] > arr[i])
+            {
+                st.pop();
+            }
+            res[i] = st.isEmpty() ? -1 : st.peek();
+            st.push(i);
+        }
+        System.out.println(Arrays.toString(res));
+        return res;
+    }
+    public static int[]nextSmaller(int[]arr)
+    {
+        int n = arr.length;
+        int[]res = new int[n];
+        Stack<Integer> st = new Stack<>();
+        for(int i = n - 1; i >= 0; i--)
+        {
+            while(!st.isEmpty() && arr[st.peek()] >= arr[i])
+            {
+                st.pop();
+            }
+            res[i] = st.isEmpty() ? n : st.peek();
+            st.push(i);
+        }
+         System.out.println(Arrays.toString(res));
+        return res;
+    }
+}
