@@ -1,0 +1,39 @@
+****************************** Problem ******************************
+Remove Duplicates from Sorted Array - https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/?envType=study-plan-v2&envId=top-interview-150
+
+// brute force 
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        ArrayList<Integer> list = new ArrayList<>();
+        for(int i = 0; i < nums.length; i++)
+        {
+            if(!list.contains(nums[i]))
+            {
+                list.add(nums[i]);
+            }
+        }
+        int k = 0;
+        for(int n : list)
+        {
+            nums[k++] = n;
+        }
+        return k;
+    }
+}
+
+// optimized
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int cnt = 1;
+        for(int i = 1; i < nums.length; i++)
+        {
+            if(nums[i-1] != nums[i])
+            {
+                nums[cnt] = nums[i];
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+}
