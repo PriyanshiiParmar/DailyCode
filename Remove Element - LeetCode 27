@@ -1,0 +1,44 @@
+************************* Problem *****************************
+Remove Element - https://leetcode.com/problems/remove-element/description/?envType=study-plan-v2&envId=top-interview-150
+
+************************** Solution ****************************
+----------------- BRUTE FORCE ------------------
+// store all the elements in a list, then iterate through list
+// whenver there is any element in list such that, listElement != val
+// add it to nums[i++]
+
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        int n = nums.length, k = 0;
+        ArrayList<Integer> list = new ArrayList<>();
+        for(int i = 0; i < n; i++)
+        {
+           list.add(nums[i]);
+        }
+        System.out.println(list);
+        for(int num : list)
+        {
+            if(num != val)
+            nums[k++] = num;
+        }
+        return k;
+    }
+}
+
+// put the elemnt which is not equal to val , into nums[cnt] = nums[i]
+// where cnt is count of elements which are not equal to the val
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        int n = nums.length, k = 0;
+        int cnt = 0;
+        for(int i = 0; i < n; i++)
+        {
+            if(nums[i] != val)
+            {
+                nums[cnt] = nums[i];
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+}
