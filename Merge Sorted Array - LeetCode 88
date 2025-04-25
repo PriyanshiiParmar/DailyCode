@@ -1,0 +1,61 @@
+**************************** Problem ****************************
+Merge Sorted Array - https://leetcode.com/problems/merge-sorted-array/description/?envType=study-plan-v2&envId=top-interview-150
+
+************************** Solution **************************
+--------------------- BRUTE FORCE------------------------
+// Idea is to  store the elements in nums1 and then sorting nums1 using bubble sort
+
+
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int k = 0;
+        for(int i = m ; i < nums1.length; i++)
+        {
+            nums1[i] = nums2[k];
+            k++;
+        }
+        System.out.println(Arrays.toString(nums1));
+        for(int i = 0; i < nums1.length - 1; i++)
+        {
+            for(int j = i + 1; j < nums1.length; j++)
+            {
+                if(nums1[i] > nums1[j])
+                {
+                    int tmp = nums1[i];
+                    nums1[i] = nums1[j];
+                    nums1[j] = tmp;
+                }
+            }
+        }
+    }
+}
+
+
+----------------------- OPTIMZED ---------------------------
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i = 0, j = 0, k = 0;
+        int[]tmp = new int[m+n];
+        while(i < m && j < n)
+        {
+            if(nums1[i] < nums2[j])
+            {
+                tmp[k++] = nums1[i++];
+            }else{
+                tmp[k++] = nums2[j++];
+            }
+        }
+        while(i < m)
+        {
+            tmp[k++] = nums1[i++];
+        }
+        while(j < n)
+        {
+            tmp[k++] = nums2[j++];
+        }
+        for(int l = 0; l < m+n; l++)
+        {
+            nums1[l] = tmp[l];
+        }
+    }
+}
