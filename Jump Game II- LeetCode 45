@@ -1,0 +1,26 @@
+ ************************************ Problem ************************************
+Jump Game II - https://leetcode.com/problems/jump-game-ii/description/?envType=study-plan-v2&envId=top-interview-150
+
+
+ ************************************ Solution ************************************
+
+// idea behind this approach is that, we are finding farthest point for every index, and 
+// we have jumps = 0, end = 0
+// whenever i == end , we increment jumps++, and then end = max
+// we iterate from 0 to n - 2, because when we are at last index, we dont need to move again
+
+class Solution {
+    public int jump(int[] nums) {
+        int jumps = 0, end = 0, max = 0;
+        for(int i = 0; i < nums.length - 1; i++)
+        {
+            max = Math.max(max, nums[i] + i);
+            if(i == end)
+            {
+                jumps++;
+                end = max;
+            }
+        }
+        return jumps;
+    }
+}
