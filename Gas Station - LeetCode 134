@@ -1,0 +1,60 @@
+************************************* Problem *************************************
+Gas Station - https://leetcode.com/problems/gas-station/description/?envType=study-plan-v2&envId=top-interview-150
+
+
+************************************* Solution *************************************
+
+// the idea for this problem is that---
+// if the total gas > total cost, then for sure there must be some unique solution exits,
+// if not then directly return -1
+// for finding unique solution, we can iterate over the loop keeping two variables
+// 1. curGas and st both initialized to 0
+// whenever curGas < 0 , then st = i + 1
+// at the end return st
+
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int totalGas = 0, totalCost = 0;
+        for(int i = 0; i < gas.length; i++)
+        {
+            totalGas += gas[i];
+            totalCost += cost[i];
+            
+        }
+        if(totalGas < totalCost) return -1;
+        int curGas = 0, st = 0;
+        for(int i = 0; i < gas.length; i++)
+        {
+            curGas = curGas + gas[i] - cost[i];
+            if(curGas < 0)
+            {
+                st = i + 1;
+                curGas = 0;
+            }
+        }
+        return st;
+    }
+}
+
+
+
+----------------------- Slightly optimized version -------------------------
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int totalGas = 0, totalCost = 0;
+        int curGas = 0, st = 0;
+        for(int i = 0; i < gas.length; i++)
+        {
+            totalGas += gas[i];
+            totalCost += cost[i];
+            curGas = curGas + gas[i] - cost[i];
+            if(curGas < 0)
+            {
+                st = i + 1;
+                curGas = 0;
+            }
+        }
+        if(totalCost > totalGas) return -1;
+        return st;
+    }
+}
