@@ -1,0 +1,97 @@
+****************************************************** Problem ******************************************************
+Valid Palindrome - https://leetcode.com/problems/valid-palindrome/description/?envType=study-plan-v2&envId=top-interview-150
+
+
+ ****************************************************** Solution ******************************************************
+
+---------------------- 1st approach -----------------------
+class Solution {
+    public boolean isPalindrome(String s) {
+        if(s.length() == 0 || s.length() == 1) return true;
+        int i = 0, j = s.length() - 1;
+        s = s.toLowerCase();
+        while(i <= j)
+        {
+            while(!Character.isDigit(s.charAt(i)) && !Character.isLetter(s.charAt(i)) && i < j)
+            {
+                i++;
+            }
+            while(!Character.isDigit(s.charAt(j)) && !Character.isLetter(s.charAt(j)) && j > i)
+            {
+                j--;
+            }
+            if(s.charAt(i) == s.charAt(j))
+            {
+                i++;
+                j--;
+            }
+            else return false;
+        }
+        return true;
+    }
+}
+
+
+
+------------------------ 2nd Approach -----------------------
+class Solution 
+{
+    public boolean isPalindrome(String s) 
+    {
+        if(s.length() == 0)
+        return true;
+         StringBuilder str = new StringBuilder();
+        for(int i = 0; i < s.length(); i++)
+        {
+            if (Character.isLetter(s.charAt(i)) || Character.isDigit(s.charAt(i)))
+            {
+                str.append(s.charAt(i));
+            }
+        }
+        String ss = str.toString().toLowerCase();
+        return palin(0, ss.length() - 1, ss);
+    }
+    private boolean palin(int st, int end, String str)
+    {
+        if(st >= end)
+        return true;
+         if(str.charAt(st) != str.charAt(end))
+            return false;
+            return palin(st+1, end - 1, str);
+    }
+}
+
+
+------------------------ 3rd way ---------------
+
+class Solution 
+{
+    public boolean isPalindrome(String s) 
+    {
+        if(s.length() == 0)
+        return true;
+         StringBuilder str = new StringBuilder();
+        for(int i = 0; i < s.length(); i++)
+        {
+            if (Character.isLetter(s.charAt(i)) || Character.isDigit(s.charAt(i)))
+            {
+                str.append(s.charAt(i));
+            }
+        }
+        String ss = str.toString().toLowerCase();
+        return palin(ss);
+    }
+    private boolean palin(String str)
+    {
+        int st = 0, end = str.length() - 1;
+        while(st <= end)
+        {
+            if(str.charAt(st) != str.charAt(end))
+            return false;
+            st++;
+            end--;
+        }
+        return true;
+    }
+}
+
