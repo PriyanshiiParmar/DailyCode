@@ -1,0 +1,11 @@
+********************************************************** Problem **********************************************************
+Length of Last Word - https://leetcode.com/problems/length-of-last-word/description/?envType=study-plan-v2&envId=top-interview-150
+
+
+********************************************************** Solution **********************************************************
+class Solution {
+    public int lengthOfLastWord(String s) {
+        String[]str = s.trim().split(" ");
+        return str[str.length - 1].length();
+    }
+}
