@@ -63,3 +63,33 @@ class Solution {
         return sum;
     }
 }
+
+
+------------------------ 3rd approach --------------------
+// the simplest way for this problem is to store all the possible pairs alonw with their values in map
+// and then iterate over the string to get the number
+
+class Solution {
+    public int romanToInt(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int num = 0;
+        map.put('I', 1);
+        map.put('V', 5);
+        map.put('X', 10);
+        map.put('L', 50);
+        map.put('C', 100);
+        map.put('D', 500);
+        map.put('M', 1000);
+        s = s.replace("IV", "IIII");
+        s = s.replace("IX", "VIIII");
+        s = s.replace("XL", "XXXX");
+        s = s.replace("XC", "LXXXX");
+        s = s.replace("CD", "CCCC");
+        s = s.replace("CM", "DCCCC");
+        for(int i = 0; i < s.length(); i++)
+        {
+            num += map.get(s.charAt(i));
+        }
+        return num;
+    }
+}
