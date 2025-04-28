@@ -1,0 +1,23 @@
+********************************************************************** Problem **********************************************************************
+Is Subsequence - https://leetcode.com/problems/is-subsequence/description/?envType=study-plan-v2&envId=top-interview-150
+
+
+
+********************************************************************** Solution **********************************************************************
+
+// for every element of s check if it is same, increment i and j else increment j only
+
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int i = 0, j = 0, cnt = 0;
+        while(i < s.length() && j < t.length())
+        {
+            if(s.charAt(i) == t.charAt(j))
+            {
+                i++;
+            }
+            j++;
+        }
+        return cnt == s.length() ? true : false;
+    }
+}
