@@ -1,0 +1,43 @@
+****************************************** Problem *******************************************
+
+Find the Index of the First Occurrence in a String - 
+
+****************************************** Problem *******************************************
+
+
+----------------------- First Approach ---------------------------
+# using inbuilt funtions 
+class Solution {
+    public int strStr(String haystack, String needle) {
+        if (needle.isEmpty()) {
+            return 0;
+        }
+        return haystack.indexOf(needle);
+    }
+}
+
+
+------------------------- Second Approach -----------------------------
+# using brute force
+class Solution {
+    public int strStr(String haystack, String needle) {
+        int i = 0, j = 0, cnt = 0;
+        if(haystack.length() < needle.length()) return -1;
+        while(i < haystack.length() && j < needle.length())
+        {
+            if(haystack.charAt(i) == needle.charAt(j))
+            {
+                j++;
+                cnt++;
+            }
+            else{
+                i = i - cnt;
+                cnt = 0;
+                j = 0;
+            }
+            i++;
+        }
+        if(cnt == needle.length()) return i - needle.length();
+        return -1;
+    }
+}
