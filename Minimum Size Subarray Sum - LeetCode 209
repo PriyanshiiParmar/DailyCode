@@ -1,0 +1,56 @@
+********************************************************** Problem **********************************************************
+Minimum Size Subarray Sum - https://leetcode.com/problems/minimum-size-subarray-sum/description/?envType=study-plan-v2&envId=top-interview-150
+
+
+********************************************************** Solution **********************************************************
+
+// 1st approach --- giving TLE
+- generate all possible subarray, look into them if sum >= target
+- if condition matches , then calculate the subarray length
+- repeat it until the loop ends
+
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int ans = 99999;
+        for(int i = 0; i < nums.length; i++)
+        {
+            int sum = 0;
+            for(int j = i; j < nums.length; j++)
+            {
+                sum += nums[j];
+                if(sum == target)
+                {
+                    ans = Math.min((j - i + 1), ans);
+                    System.out.println(sum+" "+ j +" "+ i + ans);
+                }
+            }
+        }
+        return ans == 99999 ? 0 : ans;
+    }
+}
+
+
+// 2nd one ---- a more oprimized one
+- we try to use the concept of sliding window, 
+- we start with 0 index, both left and right and sum = 0, ans = max value
+- iterating over the nums, we try to get sum >= target
+- when this condition matches, we try to look for a better ans by removing left elements till the conditions still satisfied
+
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int left = 0, right = 0;
+        int ans = Integer.MAX_VALUE;
+        int sum = 0;
+        while(right < nums.length)
+        {
+            sum += nums[right];
+            while(sum >= target)
+            {
+                ans = Math.min(ans, (right - left + 1));
+                sum -= nums[left++];
+            }
+            right++;
+        }
+        return ans == Integer.MAX_VALUE ? 0 : ans;
+    }
+}
