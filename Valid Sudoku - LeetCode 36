@@ -1,0 +1,55 @@
+****************************************************** Problem ******************************************************
+Valid Sudoku - https://leetcode.com/problems/valid-sudoku/description/?envType=study-plan-v2&envId=top-interview-150
+
+****************************************************** Solution ******************************************************
+
+----- APROACH ------
+-> first check all rows, if found any repetation, return false upfront
+-> similarly check for cols, and then for 3 * 3 grids
+
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        for(int i = 0; i < 9; i++)
+        {
+            List<Character> list = new ArrayList<>();
+            for(int j = 0; j < 9; j++)
+            {
+                if((board[i][j] != '.') && (list.contains(board[i][j])))
+                {
+                    return false;
+                }
+                if(board[i][j] != '.') list.add(board[i][j]);
+            }
+        }
+
+        for(int i = 0; i < 9; i++)
+        {
+            List<Character> list = new ArrayList<>();
+            for(int j = 0; j < 9; j++)
+            {
+                if(board[j][i] != '.' && list.contains(board[j][i]))
+                {
+                    return false;
+                }
+                if(board[j][i] != '.') list.add(board[j][i]);
+            }
+        }
+
+
+       for (int row = 0; row < 9; row += 3) {
+    for (int col = 0; col < 9; col += 3) {
+        Set<Character> set = new HashSet<>();
+        for (int i = row; i < row + 3; i++) {
+            for (int j = col; j < col + 3; j++) {
+                if (board[i][j] != '.') {
+                    if (set.contains(board[i][j])) return false;
+                    set.add(board[i][j]);
+                }
+            }
+        }
+    }
+}
+
+        return true;
+    }
+}
