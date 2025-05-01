@@ -1,0 +1,43 @@
+********************************************************** Problem **********************************************************
+Minimum Window Substring - https://leetcode.com/problems/minimum-window-substring/description/?envType=study-plan-v2&envId=top-interview-150
+
+********************************************************** Solution **********************************************************
+class Solution {
+    public String minWindow(String s, String t) {
+        int m = s.length(), n = t.length();
+        if(n > m) return "";
+        int[]freq = new int[128];
+        for(int i = 0; i < n; i++)
+        {
+            freq[t.charAt(i)]++;
+        }
+        int r = 0, l = 0, cnt = 0, stInd = -1, minLen = Integer.MAX_VALUE;
+        while(r < m)
+        {
+            char rchar = s.charAt(r);
+            if(freq[rchar] > 0)
+            {
+                cnt++;
+            }
+            freq[rchar]--;
+            while(cnt == n)
+            {
+                if(minLen > r - l + 1)
+                {
+                    minLen = r - l + 1;
+                    stInd = l;
+                }
+
+                char lChar = s.charAt(l);
+                freq[lChar]++;
+                if(freq[lChar] > 0)
+                {
+                    cnt--;
+                }
+                l++;
+            }
+            r++;
+        }
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(stInd, stInd + minLen);
+    }
+}
