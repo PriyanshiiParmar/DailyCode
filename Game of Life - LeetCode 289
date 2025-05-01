@@ -1,0 +1,48 @@
+******************************************** Probelm **********************************************
+Game of Life - https://leetcode.com/problems/game-of-life/description/?envType=study-plan-v2&envId=top-interview-150
+
+
+******************************************** Solution **********************************************
+
+class Solution {
+    public void gameOfLife(int[][] board) {
+      int[][] dir = {{-1, -1}, {-1, 0}, {-1, 1},
+                       {0, -1},          {0, 1},
+                       {1, -1}, {1, 0}, {1, 1}};
+
+    int n = board.length, m = board[0].length;
+    int[][]copy = new int[n][m];
+    
+    for(int i = 0; i < n; i++)
+    {
+        for(int j = 0; j < m; j++)
+        {
+            copy[i][j] = board[i][j];
+        }
+    }
+
+      for(int i = 0; i < board.length; i++)
+      {
+        for(int j = 0; j < board[0].length; j++)
+        {
+            int zerocnt = 0, onecnt = 0;
+            for(int k = 0; k < 8; k++)
+            {
+                int ni = i + dir[k][0], nj = j + dir[k][1];
+                if((ni >= 0 && ni < board.length) && (nj >= 0 && nj < board[0].length))
+                {
+                    if(copy[ni][nj] == 1)
+                    onecnt++;
+                }
+            }
+           if(copy[i][j] == 1)
+           {
+            if(onecnt < 2 || onecnt > 3) board[i][j] = 0;
+           }
+           else{
+            if(onecnt == 3) board[i][j] = 1;
+           }
+        }
+      }  
+    }
+}
