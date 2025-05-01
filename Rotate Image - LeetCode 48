@@ -1,0 +1,36 @@
+*********************************************** Problem ***********************************************
+Rotate Image - https://leetcode.com/problems/rotate-image/description/?envType=study-plan-v2&envId=top-interview-150
+
+
+*********************************************** Solution ***********************************************
+class Solution {
+    public void rotate(int[][] mat) {
+        //tanspose -> reverse
+        int n = mat.length;
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = i+1; j < n; j++)
+            {
+                int tmp = mat[i][j];
+                mat[i][j] = mat[j][i];
+                mat[j][i] = tmp;
+            }
+        }
+        for(int i = 0; i < n; i++)
+        {
+            reverse(mat[i]);
+        }
+    }
+    public static void reverse(int[]arr)
+    {
+        int left = 0, right = arr.length - 1;
+        while(left <= right)
+        {
+            int tmp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = tmp;
+            left++;
+            right--;
+        }
+    }
+} 
