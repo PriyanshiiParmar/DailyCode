@@ -1,0 +1,25 @@
+************************************************** Problem **************************************************
+Happy Number - https://leetcode.com/problems/happy-number/description/?envType=study-plan-v2&envId=top-interview-150
+
+************************************************** Solution **************************************************
+class Solution {
+    public boolean isHappy(int n) {
+        if(n < 10 && n != 1 && n != 7) return false;
+        List<Integer> list = new ArrayList<>();
+        while(n > 1)
+        {
+            int num = n, sum = 0;
+            while(num > 0)
+            {
+                int dig = num % 10;
+                sum += (dig * dig);
+                num = num / 10;
+            }
+            System.out.println(sum);
+            if(list.contains(sum)) return false;
+            list.add(sum);
+            n = sum;
+        }
+        return n == 1 ? true : false;
+    }
+}
