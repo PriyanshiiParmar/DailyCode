@@ -1,0 +1,46 @@
+************************************************************* Problem *************************************************************
+Spiral Matrix - https://leetcode.com/problems/spiral-matrix/description/?envType=study-plan-v2&envId=top-interview-150
+
+************************************************************* Solution *************************************************************
+
+class Solution {
+    public List<Integer> spiralOrder(int[][] mat) {
+        List<Integer> list = new ArrayList<>();
+        int r = mat.length, c = mat[0].length;
+        //traversing row
+        int fr = 0, lr = r - 1, fc = 0, lc = c - 1;
+        while(fr <= lr && fc <= lc)
+        {
+             //traversing row
+            for(int col = fc; col <= lc; col++)
+            {
+                list.add(mat[fr][col]);
+            }
+            fr++;
+             //traversing last col 
+            for(int row = fr; row <= lr; row++)
+            {
+                list.add(mat[row][lc]);
+            }
+            lc--;
+            if(fr <= lr)
+            {
+                for(int col = lc; col >= fc; col--)
+                {
+                    list.add(mat[lr][col]);
+                }
+                lr--;
+            }
+
+            if(fc <= lc)
+            {
+                for(int row = lr; row >= fr; row--)
+                {
+                    list.add(mat[row][fc]);
+                }
+                fc++;
+            }
+        }
+        return list;
+    }
+}
