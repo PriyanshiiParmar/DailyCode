@@ -1,0 +1,28 @@
+************************************************************ Problem ************************************************************
+Group Anagrams - https://leetcode.com/problems/group-anagrams/?envType=study-plan-v2&envId=top-interview-150
+
+************************************************************ Solution ************************************************************
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> ans = new ArrayList<>();
+        Map<String, List<String>> map = new HashMap<>();
+        for(String s : strs)
+        {
+            char[]st = s.toCharArray();
+            Arrays.sort(st);
+            String key = new String(st);
+            if(map.containsKey(key))
+            {
+                map.get(key).add(s);
+            }
+            else{
+                List<String> inner = new ArrayList<>();
+                inner.add(s);
+                map.put(key, inner);
+            }
+        }
+
+        ans.addAll(map.values());
+        return ans;
+    }
+}
