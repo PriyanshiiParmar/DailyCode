@@ -1,0 +1,40 @@
+*********************************************************************** Problem *********************************************************************** 
+Remove Duplicates from Sorted List II - https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/?envType=study-plan-v2&envId=top-interview-150
+
+*********************************************************************** Solution *********************************************************************** 
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution
+{
+    public ListNode deleteDuplicates(ListNode head) 
+    {
+        ListNode tmp = head;
+        Map<Integer, Integer> map = new HashMap<>();
+        while(tmp != null)
+        {
+           map.put(tmp.val, map.getOrDefault(tmp.val, 0) + 1);
+            tmp = tmp.next;
+        }
+        tmp = head;
+        ListNode newHead = new ListNode();
+        ListNode trav = newHead;
+        while(tmp != null)
+        {
+            if(map.get(tmp.val) == 1)
+            {
+                trav.next = new ListNode(tmp.val);
+                trav = trav.next;
+            }
+            tmp = tmp.next;
+        }
+        return newHead.next;
+    }
+}
